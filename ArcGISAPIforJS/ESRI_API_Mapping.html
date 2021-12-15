@@ -1,48 +1,57 @@
 <HTML>
-    <head>
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <title>ArcGIS API for Javascript Practice</title>
-        <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
-        <script src="https://js.arcgis.com/4.21/"></script>
-        <script>
-            require(["esri/config",
-                     "esri/Map",
-                     "esri/views/MapView",
-                     "esri/widgets/BasemapToggle",
-                     "esri/widgets/BasemapGallery"
-                    ],
-                    function (keyConfig,Map, MapView) {
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>ArcGIS API for Javascript Practice</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.21/"></script>
+    <script>
+      
+      require(["esri/config",
+              "esri/Map",
+              "esri/views/MapView",
+              "esri/widgets/BasemapGallery",
+              "esri/layers/FeatureLayer",
+              "esri/widgets/Expand"
+              ],
+      function(keyConfig,Map, MapView, BasemapGallery, FeatureLayer, Expand){
 
-                keyConfig.apiKey = "PASTE_KEY_HERE"
+        keyConfig.apiKey = "PASTE_KEY_HERE"
 
-                const map = new Map({
-                    basemap: "arcgis-topographic"
-                });
+        const map = new Map({
+          basemap: "arcgis-topographic"
+        });
               
-                const view = new MapView({
-                  map:map,
-                   center:[-77.45, 37.55],
-                   zoom: 13,
-                   container:"viewDiv"
-                });
+        const view = new MapView({
+          map:map,
+          center:[-77.45, 37.55],
+          zoom: 13,
+          container:"viewDiv"
+        });
               
-                const basemapToggle = new BasemapToggle({
-                  view:view,
-                  nextBasemap:"arcgis-imagery"
-                });
-              
-              view.ui.add(basemapToggle,"bottom-right");
-              
-              const basemapGallery = new BasemapGallery({
-        view: view,
-        source: {
-          query: {
-            title: '"World Basemaps for Developers" AND owner:esri'
-          }
-        }
-      });
-              view.ui.add(basemapGallery, "top-right");
-            });
+        const basemapGallery = new BasemapGallery({
+          view: view,
+          container: document.createElement("div"),
+          source: {
+          	query: {
+          		title: '"World Basemaps for Developers" AND owner:esri'
+         		}
+         }
+        });
+        
+       const bgExpand = new Expand({
+       	view:view,
+       	content:basemapGallery
+       });
+
+        
+       const pointFeatures = new FeatureLayer({
+         url: "ADD_URL_HERE"
+       }); 
+       
+      view.ui.add(bgExpand, "top-right");     
+      map.add(pointFeatures);
+
+    });
          
         </script>
 
@@ -53,16 +62,29 @@
           }
           
             #viewDiv{
-                padding: 0;
-                margin: 0;
+                padding:0;
+                margin:0;
                 height:100%;
                 width:100%;
             }
+            
+            #header{
+              width:100%;
+              padding:0;
+              margin:0;
+            }
+            
         </style>
     </head>
 
     <body>
-        <div id="viewDiv"></div>
+    <div id="header"></div>
+        <button onclick = "goToXY"> Go To XY</button>
+        <div id="viewDiv">
+          <div id"widgetDiv">
+            <div id="bGal"></div>
+          </div>
+        </div>
     </body>
 </HTML>
 
