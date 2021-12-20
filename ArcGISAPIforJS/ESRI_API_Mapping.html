@@ -1,7 +1,7 @@
 <HTML>
   <head>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>ArcGIS API for Javascript Practice</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title> ArcGIS API for JS experiments </title>
     <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
     <script src="https://js.arcgis.com/4.21/"></script>
     <script>
@@ -13,8 +13,9 @@
               "esri/layers/FeatureLayer",
               "esri/widgets/Expand"
               ],
-      function(keyConfig,Map, MapView, BasemapGallery, FeatureLayer, Expand){
+      function(keyConfig, Map, MapView, BasemapGallery, FeatureLayer, Expand){
 
+        // PASTE_KEY_HERE
         keyConfig.apiKey = "PASTE_KEY_HERE"
 
         const map = new Map({
@@ -33,19 +34,19 @@
           container: document.createElement("div"),
           source: {
           	query: {
-          		title: '"World Basemaps for Developers" AND owner:esri'
+          		title:'"World Basemaps for Developers" AND owner:esri'
          		}
          }
         });
         
-       const bgExpand = new Expand({
-       	view:view,
-       	content:basemapGallery
+        const bgExpand = new Expand({
+          view:view,
+          content:basemapGallery
        });
 
         
        const pointFeatures = new FeatureLayer({
-         url: "ADD_URL_HERE"
+          url: "ADD_URL_HERE"
        }); 
        
       view.ui.add(bgExpand, "top-right");     
@@ -56,7 +57,6 @@
         </script>
 
         <style>
-          /* need further experimentation, but this is used to make the div equal to the page height */
           html, body{
             height:100%;
           }
@@ -72,19 +72,27 @@
               width:100%;
               padding:0;
               margin:0;
-            }
+              color:green;
+              display: flex;
+              align-items: center;
+             }
             
         </style>
     </head>
 
     <body>
+    
+    <!-- seting up go to xy in header--> 
     <div id="header"></div>
-        <button onclick = "goToXY"> Go To XY</button>
-        <div id="viewDiv">
-          <div id"widgetDiv">
-            <div id="bGal"></div>
-          </div>
-        </div>
+      <form id="xyInput" onsubmit="goToXY">
+        <input type="number" id="inX">
+        <label for = "inX">Latitude (dd)</label>
+        <input type="number" id="inY">
+        <label for = "inY">Longitude (dd)</label>
+        <input type="submit">
+      </form>
+    <!-- map element -->
+    <div id="viewDiv"></div>
+        
     </body>
 </HTML>
-
