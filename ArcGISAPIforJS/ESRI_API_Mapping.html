@@ -3,84 +3,12 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <title> ArcGIS API for JS experiments </title>
     <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+    <link rel="stylesheet" href="ESRI_API_Styles.css">
     <script src="https://js.arcgis.com/4.21/"></script>
-    <script>
-      
-      require(["esri/config",
-              "esri/Map",
-              "esri/views/MapView",
-              "esri/widgets/BasemapGallery",
-              "esri/layers/FeatureLayer",
-              "esri/widgets/Expand"
-              ],
-      function(keyConfig, Map, MapView, BasemapGallery, FeatureLayer, Expand){
+    <script src="ESRI_API_Scripts.js"></script>
+  </head>
 
-        // PASTE_KEY_HERE
-        keyConfig.apiKey = "PASTE_KEY_HERE"
-
-        const map = new Map({
-          basemap: "arcgis-topographic"
-        });
-              
-        const view = new MapView({
-          map:map,
-          center:[-77.45, 37.55],
-          zoom: 13,
-          container:"viewDiv"
-        });
-              
-        const basemapGallery = new BasemapGallery({
-          view: view,
-          container: document.createElement("div"),
-          source: {
-          	query: {
-          		title:'"World Basemaps for Developers" AND owner:esri'
-         		}
-         }
-        });
-        
-        const bgExpand = new Expand({
-          view:view,
-          content:basemapGallery
-       });
-
-        
-       const pointFeatures = new FeatureLayer({
-          url: "ADD_URL_HERE"
-       }); 
-       
-      view.ui.add(bgExpand, "top-right");     
-      map.add(pointFeatures);
-
-    });
-         
-        </script>
-
-        <style>
-          html, body{
-            height:100%;
-          }
-          
-            #viewDiv{
-                padding:0;
-                margin:0;
-                height:100%;
-                width:100%;
-            }
-            
-            #header{
-              width:100%;
-              padding:0;
-              margin:0;
-              color:green;
-              display: flex;
-              align-items: center;
-             }
-            
-        </style>
-    </head>
-
-    <body>
+  <body>
     
     <!-- seting up go to xy in header--> 
     <div id="header"></div>
@@ -94,5 +22,6 @@
     <!-- map element -->
     <div id="viewDiv"></div>
         
-    </body>
+  </body>
+  
 </HTML>
